@@ -1,0 +1,12 @@
+# 排除虛擬環境（作業要求）
+venv/
+env/
+
+# 排除 Python 執行時產生的快取檔案
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 排除作業系統自動產生的隱藏檔
+.DS_Store
+Thumbs.db
