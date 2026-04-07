@@ -10,3 +10,6 @@ __pycache__/
 # 排除作業系統自動產生的隱藏檔
 .DS_Store
 Thumbs.db
+__MACOSX/
+.DS_Store
+assets/
