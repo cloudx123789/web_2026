@@ -1,0 +1,46 @@
+// 發送 AJAX 請求取得資料
+function loadData() {
+    var openUrl = "https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=6";
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', openUrl, true);
+    xhr.send();
+    
+    xhr.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+            var dataset = JSON.parse(this.responseText);
+            addNewData(dataset);
+        }
+    };
+}
+
+// 處理資料並動態新增到 HTML 表格中
+function addNewData(dataset) {
+    var myTable = document.getElementById("csie");
+    
+    dataset.forEach(function(data, index) {
+        var row = myTable.insertRow(-1);
+        
+        row.insertCell(0).innerHTML = data['title'];
+        
+        if (data['showInfo'] && data['showInfo'].length > 0) {
+            row.insertCell(1).innerHTML = data['showInfo'][0]['location'];
+            row.insertCell(2).innerHTML = data['showInfo'][0]['price'];
+        } else {
+            row.insertCell(1).innerHTML = "";
+            row.insertCell(2).innerHTML = "";
+        }
+    });
+}
+
+// 清空表格舊資料（保留表頭）
+function delOldData() {
+    var myTable = document.getElementById("csie");
+    while (myTable.rows.length > 1) {
+        myTable.deleteRow(1);
+    }
+}
+
+// 當網頁載入完成後，自動執行一次抓取資料的動作
+window.onload = function() {
+    loadData();
+};
